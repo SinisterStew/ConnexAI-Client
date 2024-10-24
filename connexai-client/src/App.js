@@ -56,10 +56,12 @@ function App() {
   }, []);
 
   const formattedTimeDiff = useMemo(() => {
-    const millisecDiff = Math.abs(clientTimeData - serverTimeData.data.epoch);
-    return new Date(millisecDiff).toISOString().slice(11,19);
+    const msDiff = Math.abs(clientTimeData - serverTimeData.data.epoch);
+    const roundedMsDiff = 1000 * Math.round(msDiff / 1000);
+
+    return new Date(roundedMsDiff).toISOString().slice(11,19);
   }
-  ,[clientTimeData, serverTimeData]);
+  ,[clientTimeData, serverTimeData.data]);
 
   return (
     <div className="splitScreen">
